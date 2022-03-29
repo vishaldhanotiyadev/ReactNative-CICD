@@ -6,8 +6,7 @@
  * @flow strict-local
  */
 
-import {hasCrashedInLastSession} from 'appcenter-crashes';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -17,10 +16,15 @@ import {
   View,
 } from 'react-native';
 import Crashes from 'appcenter-crashes';
+import Analytics from 'appcenter-analytics';
 
 const App = () => {
+  useEffect(async () => {
+    await Analytics.setEnabled(true);
+  }, []);
+
   return (
-    <SafeAreaView style={{flex: 1, padding: 20, justifyContent: 'center'}}>
+    <SafeAreaView style={styles.container}>
       <StatusBar barStyle={'light-content'} />
 
       <View style={styles.viewContainer}>
@@ -39,6 +43,11 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+  },
   viewContainer: {
     padding: 20,
     backgroundColor: 'white',
